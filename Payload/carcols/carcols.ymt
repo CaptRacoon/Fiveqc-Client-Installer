@@ -6,7 +6,7 @@
         <TextureSetName>Standard White</TextureSetName>
         <DiffuseMapName>plate01</DiffuseMapName>
         <NormalMapName>plate01_n</NormalMapName>
-        <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
+        <FontExtents x="0.08000000" y="0.3100000" z="1.06000000" w="0.8200000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
         <FontColor value="0xFF3A4564"/>
         <FontOutlineColor value="0x00FFFFFF"/>
@@ -17,7 +17,7 @@
         <TextureSetName>Yellow Plate</TextureSetName>
         <DiffuseMapName>plate02</DiffuseMapName>
         <NormalMapName>plate02_n</NormalMapName>
-        <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
+        <FontExtents x="0.08000000" y="0.3100000" z="1.06000000" w="0.8200000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
         <FontColor value="0xFF3A4564"/>
         <FontOutlineColor value="0x00FFFFFF"/>
@@ -50,7 +50,7 @@
         <TextureSetName>Police guv plate</TextureSetName>
         <DiffuseMapName>plate05</DiffuseMapName>
         <NormalMapName>plate05_n</NormalMapName>
-        <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
+        <FontExtents x="0.08000000" y="0.3100000" z="1.06000000" w="0.8200000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
         <FontColor value="0xFF3A4564"/>
         <FontOutlineColor value="0x00FFFFFF"/>
@@ -74,7 +74,7 @@
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFF084dad"/>
         <FontOutlineColor value="0xFFBBBBBB"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
@@ -83,9 +83,9 @@
         <TextureSetName>0x0E314192</TextureSetName>
         <DiffuseMapName>plate_mod_02</DiffuseMapName>
         <NormalMapName>yankton_plate_n</NormalMapName>
-        <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
+        <FontExtents x="0.08000000" y="0.3100000" z="1.06000000" w="0.8200000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFF415E3E"/>
         <FontOutlineColor value="0xFF82A2BB"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
@@ -96,7 +96,7 @@
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFF1CD607"/>
         <FontOutlineColor value="0xFF000000"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
@@ -107,13 +107,13 @@
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFF07D9E0"/>
         <FontOutlineColor value="0xFF000000"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
       </Item>
       <Item>
-        <TextureSetName>0x729E0A66</TextureSetName>
+        <TextureSetName>0x72F7049A</TextureSetName>
         <DiffuseMapName>plate_mod_05</DiffuseMapName>
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
@@ -129,7 +129,7 @@
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFFFBFF00"/>
         <FontOutlineColor value="0xFF000000"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
@@ -140,7 +140,7 @@
         <NormalMapName>yankton_plate_n</NormalMapName>
         <FontExtents x="0.08000000" y="0.35500000" z="0.92000000" w="0.81600000"/>
         <MaxLettersOnPlate x="7.00000000" y="1.00000000"/>
-        <FontColor value="0xFFFF00FF"/>
+        <FontColor value="0xFFFCD8FC"/>
         <FontOutlineColor value="0xFF39D363"/>
         <IsFontOutlineEnabled value="false"/>
         <FontOutlineMinMaxDepth x="0.47500000" y="0.50000000"/>
