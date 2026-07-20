@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 2,
+  "serverName": "FiveQuébec",
+  "serverBuild": 3751,
+  "platformFolderTemplate": "platform-{build}",
+  "supportUrl": "https://discord.gg/REMPLACE-MOI",
+  "mods": [
+    {
+      "id": "siren-limit-adjuster",
+      "name": "SirenSetting Limit Adjuster",
+      "description": "Augmente la limite des sirènes clientes. Requis pour le parc de véhicules FiveQuébec.",
+      "required": true,
+      "assetName": "SirenSetting_Limit_Adjuster.asi",
+      "destination": "plugins/SirenSetting_Limit_Adjuster.asi"
+    },
+    {
+      "id": "open-camera",
+      "name": "OpenCamera",
+      "description": "Facultatif — enlève les limites de caméra dans le Rockstar Editor pour faciliter les prises de vue.",
+      "required": false,
+      "assetName": "OpenCamera.asi",
+      "destination": "plugins/OpenCamera.asi"
+    },
+    {
+      "id": "carcols",
+      "name": "Carcols FiveQuébec",
+      "description": "Fichier carcols client requis. Il est installé automatiquement dans le dossier platform correspondant au build du serveur configuré.",
+      "required": true,
+      "assetName": "carcols.ymt",
+      "destination": "citizen/{platformFolder}/data/carcols.ymt"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+name: Build and publish FiveQC installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version sans le v (ex. 1.0.0)"
+        required: true
+        default: "1.0.0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fiveqc-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          $version = "${{ inputs.version }}".Trim()
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Version invalide. Utilise le format 1.0.0 sans le v."
+          }
+
+          $tag = "v$version"
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
+      - name: Validate distribution files
+        shell: pwsh
+        run: |
+          $required = @(
+            "Payload/plugins/SirenSetting_Limit_Adjuster.asi",
+            "Payload/plugins/OpenCamera.asi",
+            "Payload/carcols/carcols.ymt",
+            "distribution/config.json"
+          )
+
+          foreach ($file in $required) {
+            if (-not (Test-Path $file)) {
+              throw "Required file missing: $file"
+            }
+          }
+
+          $config = Get-Content "distribution/config.json" -Raw | ConvertFrom-Json
+          if ($config.serverBuild -le 0) {
+            throw "serverBuild est invalide dans distribution/config.json"
+          }
+
+      - name: Publish Windows executable
+        shell: pwsh
+        run: |
+          dotnet publish "src/FiveQC.ClientInstaller/FiveQC.ClientInstaller.csproj" `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:Version=${{ steps.version.outputs.version }} `
+            -o "artifacts/publish"
+
+          Copy-Item "artifacts/publish/FiveQC-Client-Installer.exe" "artifacts/FiveQC-Client-Installer.exe"
+
+      - name: Copy individual client files
+        shell: pwsh
+        run: |
+          Copy-Item "Payload/plugins/SirenSetting_Limit_Adjuster.asi" "artifacts/SirenSetting_Limit_Adjuster.asi"
+          Copy-Item "Payload/plugins/OpenCamera.asi" "artifacts/OpenCamera.asi"
+          Copy-Item "Payload/carcols/carcols.ymt" "artifacts/carcols.ymt"
+
+      - name: Write SHA-256 files
+        shell: pwsh
+        run: |
+          $files = @(
+            "artifacts/FiveQC-Client-Installer.exe",
+            "artifacts/SirenSetting_Limit_Adjuster.asi",
+            "artifacts/OpenCamera.asi",
+            "artifacts/carcols.ymt"
+          )
+
+          foreach ($file in $files) {
+            $name = Split-Path $file -Leaf
+            $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $name" | Set-Content "$file.sha256" -NoNewline
+          }
+
+      - name: Create or update GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "${{ steps.version.outputs.tag }}"
+          $title = "FiveQC Client Installer $tag"
+          $assets = @(
+            "artifacts/FiveQC-Client-Installer.exe",
+            "artifacts/FiveQC-Client-Installer.exe.sha256",
+            "artifacts/SirenSetting_Limit_Adjuster.asi",
+            "artifacts/SirenSetting_Limit_Adjuster.asi.sha256",
+            "artifacts/OpenCamera.asi",
+            "artifacts/OpenCamera.asi.sha256",
+            "artifacts/carcols.ymt",
+            "artifacts/carcols.ymt.sha256"
+          )
+
+          if (gh release view $tag 2>$null) {
+            gh release upload $tag @assets --clobber
+          } else {
+            gh release create $tag @assets `
+              --target "${{ github.sha }}" `
+              --title $title `
+              --generate-notes
+          }

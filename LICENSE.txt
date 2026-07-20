@@ -1,0 +1,5 @@
+FiveQC Client Installer
+Copyright (c) FiveQuébec.
+
+Ce projet est fourni pour l'utilisation interne et la distribution autorisée par FiveQuébec.
+Les composants tiers distribués dans le dossier Payload conservent leurs propres licences.
