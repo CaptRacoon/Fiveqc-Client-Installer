@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version sans le v (ex. 1.0.4)"
+        description: "Version sans le v (ex. 1.0.5)"
         required: true
-        default: "1.0.4"
+        default: "1.0.5"
 
 permissions:
   contents: write
@@ -47,8 +47,9 @@ jobs:
           $required = @(
             "Payload/plugins/SirenSetting_Limit_Adjuster.asi",
             "Payload/plugins/OpenCamera.asi",
-            "Payload/mods/vehshare.ytd"
+            "Payload/mods/0_FiveQC_Plates.rpf"
           )
+
           foreach ($file in $required) {
             if (-not (Test-Path $file)) {
               throw "Required payload file missing: $file"
@@ -73,7 +74,7 @@ jobs:
         run: |
           Copy-Item "Payload/plugins/SirenSetting_Limit_Adjuster.asi" "artifacts/SirenSetting_Limit_Adjuster.asi"
           Copy-Item "Payload/plugins/OpenCamera.asi" "artifacts/OpenCamera.asi"
-          Copy-Item "Payload/mods/vehshare.ytd" "artifacts/vehshare.ytd"
+          Copy-Item "Payload/mods/0_FiveQC_Plates.rpf" "artifacts/0_FiveQC_Plates.rpf"
 
       - name: Write SHA-256 files
         shell: pwsh
@@ -82,7 +83,7 @@ jobs:
             "artifacts/FiveQC-Client-Installer.exe",
             "artifacts/SirenSetting_Limit_Adjuster.asi",
             "artifacts/OpenCamera.asi",
-            "artifacts/vehshare.ytd"
+            "artifacts/0_FiveQC_Plates.rpf"
           )
 
           foreach ($file in $files) {
@@ -105,8 +106,8 @@ jobs:
             "artifacts/SirenSetting_Limit_Adjuster.asi.sha256",
             "artifacts/OpenCamera.asi",
             "artifacts/OpenCamera.asi.sha256",
-            "artifacts/vehshare.ytd",
-            "artifacts/vehshare.ytd.sha256"
+            "artifacts/0_FiveQC_Plates.rpf",
+            "artifacts/0_FiveQC_Plates.rpf.sha256"
           )
 
           if (gh release view $tag 2>$null) {

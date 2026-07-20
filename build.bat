@@ -28,8 +28,8 @@ if not exist "Payload\plugins\OpenCamera.asi" (
     exit /b 1
 )
 
-if not exist "Payload\mods\vehshare.ytd" (
-    echo [ERREUR] Payload\mods\vehshare.ytd est manquant.
+if not exist "Payload\mods\0_FiveQC_Plates.rpf" (
+    echo [ERREUR] Payload\mods\0_FiveQC_Plates.rpf est manquant.
     pause
     exit /b 1
 )
@@ -48,11 +48,11 @@ echo [2/3] Copie des fichiers clients individuels...
 copy /y "artifacts\publish\FiveQC-Client-Installer.exe" "artifacts\FiveQC-Client-Installer.exe" >nul
 copy /y "Payload\plugins\SirenSetting_Limit_Adjuster.asi" "artifacts\SirenSetting_Limit_Adjuster.asi" >nul
 copy /y "Payload\plugins\OpenCamera.asi" "artifacts\OpenCamera.asi" >nul
-copy /y "Payload\mods\vehshare.ytd" "artifacts\vehshare.ytd" >nul
+copy /y "Payload\mods\0_FiveQC_Plates.rpf" "artifacts\0_FiveQC_Plates.rpf" >nul
 if errorlevel 1 goto :fail
 
 echo [3/3] Generation des SHA-256...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$files = @('artifacts/FiveQC-Client-Installer.exe','artifacts/SirenSetting_Limit_Adjuster.asi','artifacts/OpenCamera.asi','artifacts/vehshare.ytd'); foreach ($file in $files) { $name = Split-Path $file -Leaf; $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant(); ('{0}  {1}' -f $hash, $name) | Set-Content ($file + '.sha256') -NoNewline }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$files = @('artifacts/FiveQC-Client-Installer.exe','artifacts/SirenSetting_Limit_Adjuster.asi','artifacts/OpenCamera.asi','artifacts/0_FiveQC_Plates.rpf'); foreach ($file in $files) { $name = Split-Path $file -Leaf; $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant(); ('{0}  {1}' -f $hash, $name) | Set-Content ($file + '.sha256') -NoNewline }"
 if errorlevel 1 goto :fail
 
 echo.
