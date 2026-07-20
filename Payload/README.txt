@@ -1,26 +1,9 @@
-FIVEQUÉBEC - PAYLOAD DES MODIFICATIONS CLIENTES
-================================================
+Place les fichiers distribués aux joueurs dans cette structure :
 
-Dépose les trois fichiers bruts dans cette structure :
+Payload\plugins\SirenSetting_Limit_Adjuster.asi
+Payload\plugins\OpenCamera.asi
+Payload\carcols\carcols.ymt
+Payload\mods\vehshare.ytd
 
-Payload\
-├── plugins\
-│   ├── SirenSetting_Limit_Adjuster.asi
-│   └── OpenCamera.asi
-└── carcols\
-    └── carcols.ymt
-
-IMPORTANT
----------
-Ces fichiers ne sont pas compressés dans un ZIP lors d'une release.
-GitHub Actions les publie individuellement comme assets de la release :
-
-- SirenSetting_Limit_Adjuster.asi
-- OpenCamera.asi
-- carcols.ymt
-
-L'installateur télécharge seulement les fichiers requis ou sélectionnés.
-OpenCamera.asi demeure facultatif pour le joueur.
-
-Avec serverBuild = 3751, carcols.ymt est installé uniquement ici :
-FiveM.app\citizen\platform-3751\data\carcols.ymt
+Le workflow GitHub publie chaque fichier séparément dans la Release.
+Aucun ZIP de mods n’est généré.

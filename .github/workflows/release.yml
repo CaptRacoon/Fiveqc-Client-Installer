@@ -1,19 +1,18 @@
 name: Build and publish FiveQC installer
 
 on:
+  push:
+    tags:
+      - "v*"
   workflow_dispatch:
     inputs:
       version:
-        description: "Version sans le v (ex. 1.0.0)"
+        description: "Version sans le v (ex. 1.0.1)"
         required: true
         default: "1.0.0"
 
 permissions:
   contents: write
-
-concurrency:
-  group: fiveqc-release
-  cancel-in-progress: false
 
 jobs:
   release:
@@ -32,12 +31,13 @@ jobs:
         id: version
         shell: pwsh
         run: |
-          $version = "${{ inputs.version }}".Trim()
-          if ($version -notmatch '^\d+\.\d+\.\d+$') {
-            throw "Version invalide. Utilise le format 1.0.0 sans le v."
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            $version = "${{ inputs.version }}"
+            $tag = "v$version"
+          } else {
+            $tag = "${{ github.ref_name }}"
+            $version = $tag.TrimStart('v')
           }
-
-          $tag = "v$version"
           "version=$version" >> $env:GITHUB_OUTPUT
           "tag=$tag" >> $env:GITHUB_OUTPUT
 
@@ -48,18 +48,12 @@ jobs:
             "Payload/plugins/SirenSetting_Limit_Adjuster.asi",
             "Payload/plugins/OpenCamera.asi",
             "Payload/carcols/carcols.ymt",
-            "distribution/config.json"
+            "Payload/mods/vehshare.ytd"
           )
-
           foreach ($file in $required) {
             if (-not (Test-Path $file)) {
-              throw "Required file missing: $file"
+              throw "Required payload file missing: $file"
             }
-          }
-
-          $config = Get-Content "distribution/config.json" -Raw | ConvertFrom-Json
-          if ($config.serverBuild -le 0) {
-            throw "serverBuild est invalide dans distribution/config.json"
           }
 
       - name: Publish Windows executable
@@ -81,6 +75,7 @@ jobs:
           Copy-Item "Payload/plugins/SirenSetting_Limit_Adjuster.asi" "artifacts/SirenSetting_Limit_Adjuster.asi"
           Copy-Item "Payload/plugins/OpenCamera.asi" "artifacts/OpenCamera.asi"
           Copy-Item "Payload/carcols/carcols.ymt" "artifacts/carcols.ymt"
+          Copy-Item "Payload/mods/vehshare.ytd" "artifacts/vehshare.ytd"
 
       - name: Write SHA-256 files
         shell: pwsh
@@ -89,7 +84,8 @@ jobs:
             "artifacts/FiveQC-Client-Installer.exe",
             "artifacts/SirenSetting_Limit_Adjuster.asi",
             "artifacts/OpenCamera.asi",
-            "artifacts/carcols.ymt"
+            "artifacts/carcols.ymt",
+            "artifacts/vehshare.ytd"
           )
 
           foreach ($file in $files) {
@@ -113,14 +109,13 @@ jobs:
             "artifacts/OpenCamera.asi",
             "artifacts/OpenCamera.asi.sha256",
             "artifacts/carcols.ymt",
-            "artifacts/carcols.ymt.sha256"
+            "artifacts/carcols.ymt.sha256",
+            "artifacts/vehshare.ytd",
+            "artifacts/vehshare.ytd.sha256"
           )
 
           if (gh release view $tag 2>$null) {
             gh release upload $tag @assets --clobber
           } else {
-            gh release create $tag @assets `
-              --target "${{ github.sha }}" `
-              --title $title `
-              --generate-notes
+            gh release create $tag @assets --title $title --generate-notes
           }

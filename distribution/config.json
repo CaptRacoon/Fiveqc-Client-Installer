@@ -24,10 +24,18 @@
     {
       "id": "carcols",
       "name": "Carcols FiveQuébec",
-      "description": "Fichier carcols client requis. Sert a voir correctement les plaques de véhciules.",
+      "description": "Fichier carcols client requis. Sert à voir correctement les plaques de véhicules.",
       "required": true,
       "assetName": "carcols.ymt",
       "destination": "citizen/{platformFolder}/data/carcols.ymt"
+    },
+    {
+      "id": "vehshare",
+      "name": "Vehshare FiveQuébec",
+      "description": "Texture véhicule client requise pour afficher correctement les éléments visuels personnalisés de FiveQuébec.",
+      "required": true,
+      "assetName": "vehshare.ytd",
+      "destination": "mods/vehshare.ytd"
     }
   ]
 }

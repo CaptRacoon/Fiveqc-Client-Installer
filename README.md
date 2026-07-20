@@ -22,6 +22,7 @@ Installateur Windows x64 en C# / .NET 8 pour distribuer les modifications client
 | `SirenSetting_Limit_Adjuster.asi` | Obligatoire | `plugins\SirenSetting_Limit_Adjuster.asi` |
 | `OpenCamera.asi` | Facultatif | `plugins\OpenCamera.asi` |
 | `carcols.ymt` | Obligatoire | `citizen\platform-{build}\data\carcols.ymt` |
+| `vehshare.ytd` | Obligatoire | `mods\vehshare.ytd` |
 
 ## Dépôt GitHub
 
@@ -41,8 +42,10 @@ Payload/
 ├─ plugins/
 │  ├─ SirenSetting_Limit_Adjuster.asi
 │  └─ OpenCamera.asi
-└─ carcols/
-   └─ carcols.ymt
+├─ carcols/
+│  └─ carcols.ymt
+└─ mods/
+   └─ vehshare.ytd
 ```
 
 Les fichiers restent bruts dans le dépôt. Le workflow ne crée pas de `FiveQC-Client-Mods.zip`.
@@ -67,7 +70,7 @@ Lors d'un changement de build, modifie seulement `serverBuild`.
 ## Première publication
 
 1. Copie tout le projet dans le dépôt GitHub.
-2. Vérifie que les trois fichiers sont présents dans `Payload`.
+2. Vérifie que les quatre fichiers sont présents dans `Payload`.
 3. Modifie l'URL Discord dans `distribution/config.json`.
 4. Commit et pousse sur `main`.
 5. Crée et pousse un tag :
@@ -88,6 +91,8 @@ OpenCamera.asi
 OpenCamera.asi.sha256
 carcols.ymt
 carcols.ymt.sha256
+vehshare.ytd
+vehshare.ytd.sha256
 ```
 
 Il n'y a aucun ZIP de modifications clientes.
@@ -111,4 +116,4 @@ Installe Visual Studio 2022 avec **.NET desktop development** ou le SDK .NET 8, 
 build.bat 1.0.0
 ```
 
-Le résultat se trouve dans `artifacts`. Le script local copie aussi les trois fichiers individuellement et génère leurs SHA-256, sans créer de ZIP.
+Le résultat se trouve dans `artifacts`. Le script local copie aussi les quatre fichiers individuellement et génère leurs SHA-256, sans créer de ZIP.

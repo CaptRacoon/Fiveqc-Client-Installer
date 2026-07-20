@@ -34,6 +34,12 @@ if not exist "Payload\carcols\carcols.ymt" (
     exit /b 1
 )
 
+if not exist "Payload\mods\vehshare.ytd" (
+    echo [ERREUR] Payload\mods\vehshare.ytd est manquant.
+    pause
+    exit /b 1
+)
+
 set VERSION=1.0.0
 if not "%~1"=="" set VERSION=%~1
 
@@ -49,10 +55,11 @@ copy /y "artifacts\publish\FiveQC-Client-Installer.exe" "artifacts\FiveQC-Client
 copy /y "Payload\plugins\SirenSetting_Limit_Adjuster.asi" "artifacts\SirenSetting_Limit_Adjuster.asi" >nul
 copy /y "Payload\plugins\OpenCamera.asi" "artifacts\OpenCamera.asi" >nul
 copy /y "Payload\carcols\carcols.ymt" "artifacts\carcols.ymt" >nul
+copy /y "Payload\mods\vehshare.ytd" "artifacts\vehshare.ytd" >nul
 if errorlevel 1 goto :fail
 
 echo [3/3] Generation des SHA-256...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$files = @('artifacts/FiveQC-Client-Installer.exe','artifacts/SirenSetting_Limit_Adjuster.asi','artifacts/OpenCamera.asi','artifacts/carcols.ymt'); foreach ($file in $files) { $name = Split-Path $file -Leaf; $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant(); ('{0}  {1}' -f $hash, $name) | Set-Content ($file + '.sha256') -NoNewline }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$files = @('artifacts/FiveQC-Client-Installer.exe','artifacts/SirenSetting_Limit_Adjuster.asi','artifacts/OpenCamera.asi','artifacts/carcols.ymt','artifacts/vehshare.ytd'); foreach ($file in $files) { $name = Split-Path $file -Leaf; $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant(); ('{0}  {1}' -f $hash, $name) | Set-Content ($file + '.sha256') -NoNewline }"
 if errorlevel 1 goto :fail
 
 echo.
