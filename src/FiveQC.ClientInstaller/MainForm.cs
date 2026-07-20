@@ -16,7 +16,7 @@ internal sealed class MainForm : Form
     private readonly FlowLayoutPanel _modsPanel;
     private readonly ProgressBar _progressBar;
     private readonly Label _statusLabel;
-    private readonly Label _buildLabel;
+    private readonly Label _filesLabel;
     private readonly Label _versionLabel;
     private readonly Button _installButton;
     private readonly Button _browseButton;
@@ -148,9 +148,9 @@ internal sealed class MainForm : Form
         infoLayout.Controls.Add(CreateSectionTitle("ÉTAT DU CLIENT", "Configuration et versions chargées depuis GitHub."), 0, 0);
 
         _versionLabel = CreateInfoLabel("Installateur", $"v{GitHubService.GetCurrentVersion().ToString(3)}");
-        _buildLabel = CreateInfoLabel("Build serveur", "Chargement…");
+        _filesLabel = CreateInfoLabel("Fichiers clients", "Chargement…");
         infoLayout.Controls.Add(_versionLabel, 0, 2);
-        infoLayout.Controls.Add(_buildLabel, 0, 3);
+        infoLayout.Controls.Add(_filesLabel, 0, 3);
         infoLayout.Controls.Add(CreateInfoLabel("Canal", "Release stable GitHub"), 0, 4);
 
         var note = new Label
@@ -305,7 +305,9 @@ internal sealed class MainForm : Form
             _latestRelease = releaseTask.Result;
             ValidateRemoteConfig(_config);
 
-            _buildLabel.Text = $"Build serveur\r\n{_config.ServerBuild}  ({_config.PlatformFolderTemplate.Replace("{build}", _config.ServerBuild.ToString())})";
+            int requiredCount = _config.Mods.Count(mod => mod.Required);
+            int optionalCount = _config.Mods.Count - requiredCount;
+            _filesLabel.Text = $"Fichiers clients\r\n{_config.Mods.Count} total — {requiredCount} requis, {optionalCount} facultatif";
             _supportButton.Enabled = Uri.TryCreate(_config.SupportUrl, UriKind.Absolute, out _);
             PopulateMods(_config.Mods);
             _installButton.Enabled = true;
@@ -549,8 +551,6 @@ internal sealed class MainForm : Form
     {
         if (config.SchemaVersion != 2)
             throw new InvalidDataException($"Version de configuration non supportée : {config.SchemaVersion}.");
-        if (config.ServerBuild <= 0)
-            throw new InvalidDataException("Le numéro de build serveur est invalide.");
         if (config.Mods.Count == 0)
             throw new InvalidDataException("La configuration ne contient aucune modification.");
         if (config.Mods.Any(mod => string.IsNullOrWhiteSpace(mod.Id) || string.IsNullOrWhiteSpace(mod.AssetName) || string.IsNullOrWhiteSpace(mod.Destination)))

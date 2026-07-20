@@ -1,8 +1,6 @@
 {
   "schemaVersion": 2,
   "serverName": "FiveQuébec",
-  "serverBuild": 3751,
-  "platformFolderTemplate": "platform-{build}",
   "supportUrl": "https://discord.gg/jvRbAn2Pgs",
   "mods": [
     {
@@ -20,14 +18,6 @@
       "required": false,
       "assetName": "OpenCamera.asi",
       "destination": "plugins/OpenCamera.asi"
-    },
-    {
-      "id": "carcols",
-      "name": "Carcols FiveQuébec",
-      "description": "Fichier carcols client requis. Sert à voir correctement les plaques de véhicules.",
-      "required": true,
-      "assetName": "carcols.ymt",
-      "destination": "citizen/{platformFolder}/data/carcols.ymt"
     },
     {
       "id": "vehshare",

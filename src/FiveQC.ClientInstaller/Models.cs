@@ -10,11 +10,6 @@ internal sealed class RemoteConfig
     [JsonPropertyName("serverName")]
     public string ServerName { get; set; } = "FiveQuébec";
 
-    [JsonPropertyName("serverBuild")]
-    public int ServerBuild { get; set; }
-
-    [JsonPropertyName("platformFolderTemplate")]
-    public string PlatformFolderTemplate { get; set; } = "platform-{build}";
 
     [JsonPropertyName("supportUrl")]
     public string? SupportUrl { get; set; }

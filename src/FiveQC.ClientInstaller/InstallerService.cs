@@ -153,15 +153,8 @@ internal sealed class InstallerService
 
     private static string ExpandTemplate(string value, RemoteConfig config)
     {
-        string platformFolder = config.PlatformFolderTemplate.Replace(
-            "{build}",
-            config.ServerBuild.ToString(),
-            StringComparison.OrdinalIgnoreCase);
-
-        return value
-            .Replace("{build}", config.ServerBuild.ToString(), StringComparison.OrdinalIgnoreCase)
-            .Replace("{platformFolder}", platformFolder, StringComparison.OrdinalIgnoreCase)
-            .Replace('/', Path.DirectorySeparatorChar);
+        _ = config;
+        return value.Replace('/', Path.DirectorySeparatorChar);
     }
 
     private static string GetSafeCombinedPath(string root, string relative)

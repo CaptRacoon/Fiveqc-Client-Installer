@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version sans le v (ex. 1.0.1)"
+        description: "Version sans le v (ex. 1.0.4)"
         required: true
-        default: "1.0.0"
+        default: "1.0.4"
 
 permissions:
   contents: write
@@ -47,7 +47,6 @@ jobs:
           $required = @(
             "Payload/plugins/SirenSetting_Limit_Adjuster.asi",
             "Payload/plugins/OpenCamera.asi",
-            "Payload/carcols/carcols.ymt",
             "Payload/mods/vehshare.ytd"
           )
           foreach ($file in $required) {
@@ -74,7 +73,6 @@ jobs:
         run: |
           Copy-Item "Payload/plugins/SirenSetting_Limit_Adjuster.asi" "artifacts/SirenSetting_Limit_Adjuster.asi"
           Copy-Item "Payload/plugins/OpenCamera.asi" "artifacts/OpenCamera.asi"
-          Copy-Item "Payload/carcols/carcols.ymt" "artifacts/carcols.ymt"
           Copy-Item "Payload/mods/vehshare.ytd" "artifacts/vehshare.ytd"
 
       - name: Write SHA-256 files
@@ -84,7 +82,6 @@ jobs:
             "artifacts/FiveQC-Client-Installer.exe",
             "artifacts/SirenSetting_Limit_Adjuster.asi",
             "artifacts/OpenCamera.asi",
-            "artifacts/carcols.ymt",
             "artifacts/vehshare.ytd"
           )
 
@@ -108,8 +105,6 @@ jobs:
             "artifacts/SirenSetting_Limit_Adjuster.asi.sha256",
             "artifacts/OpenCamera.asi",
             "artifacts/OpenCamera.asi.sha256",
-            "artifacts/carcols.ymt",
-            "artifacts/carcols.ymt.sha256",
             "artifacts/vehshare.ytd",
             "artifacts/vehshare.ytd.sha256"
           )
