@@ -3,12 +3,12 @@
   "serverName": "FiveQuébec",
   "serverBuild": 3751,
   "platformFolderTemplate": "platform-{build}",
-  "supportUrl": "https://discord.gg/REMPLACE-MOI",
+  "supportUrl": "https://discord.gg/jvRbAn2Pgs",
   "mods": [
     {
       "id": "siren-limit-adjuster",
       "name": "SirenSetting Limit Adjuster",
-      "description": "Augmente la limite des sirènes clientes. Requis pour le parc de véhicules FiveQuébec.",
+      "description": "Augmente la limite des sirènes clients. Requis pour les véhicules FiveQuébec.",
       "required": true,
       "assetName": "SirenSetting_Limit_Adjuster.asi",
       "destination": "plugins/SirenSetting_Limit_Adjuster.asi"
@@ -24,7 +24,7 @@
     {
       "id": "carcols",
       "name": "Carcols FiveQuébec",
-      "description": "Fichier carcols client requis. Il est installé automatiquement dans le dossier platform correspondant au build du serveur configuré.",
+      "description": "Fichier carcols client requis. Sert a voir correctement les plaques de véhciules.",
       "required": true,
       "assetName": "carcols.ymt",
       "destination": "citizen/{platformFolder}/data/carcols.ymt"
